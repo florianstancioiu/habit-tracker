@@ -7,11 +7,13 @@ import {
 } from "date-fns";
 import Button from "./UI/Button";
 
+export type Habit = {
+  id: string | number;
+  name: string;
+};
+
 export type HabitItemProps = {
-  habit: {
-    id: number;
-    name: string;
-  };
+  habit: Habit;
 };
 
 const HabitItem = ({ habit }: HabitItemProps) => {

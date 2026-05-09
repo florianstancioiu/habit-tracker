@@ -1,11 +1,11 @@
 import HabitItem from "./HabitItem";
+import { type Habit } from "./HabitItem";
 
-const HabitList = () => {
-  const habits = [
-    { id: 1, name: "Hi" },
-    { id: 2, name: "Bye" },
-  ];
+export type HabitListProps = {
+  habits: Habit[];
+};
 
+const HabitList = ({ habits }: HabitListProps) => {
   if (habits.length === 0) {
     return (
       <p className="text-center text-zinc-500 py-12">
