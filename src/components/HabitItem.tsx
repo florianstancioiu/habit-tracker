@@ -3,6 +3,7 @@ import {
   endOfWeek,
   format,
   isFuture,
+  isSameDay,
   startOfWeek,
 } from "date-fns";
 import Button from "./UI/Button";
@@ -10,13 +11,16 @@ import Button from "./UI/Button";
 export type Habit = {
   id: string | number;
   name: string;
+  completions: Date[];
 };
 
 export type HabitItemProps = {
   habit: Habit;
+  deleteHabit: (id: Habit["id"]) => void;
+  toggleHabit: (id: Habit["id"], date: Date) => void;
 };
 
-const HabitItem = ({ habit }: HabitItemProps) => {
+const HabitItem = ({ habit, deleteHabit, toggleHabit }: HabitItemProps) => {
   const visibleDates = eachDayOfInterval({
     start: startOfWeek(new Date(), { weekStartsOn: 1 }),
     end: endOfWeek(new Date(), { weekStartsOn: 1 }),
@@ -27,9 +31,15 @@ const HabitItem = ({ habit }: HabitItemProps) => {
       <div className="flex items-center justify-between">
         <div className="flex gap-3 items-center">
           <span className="font-medium">{habit.name}</span>
-          <span className="text-sm text-amber-400">3</span>
+          <span className="text-sm text-amber-400">
+            🔥 {habit.completions.length}
+          </span>
         </div>
-        <Button variant="ghost-destructive" className="text-sm">
+        <Button
+          onClick={() => deleteHabit(habit.id)}
+          variant="ghost-destructive"
+          className="text-sm"
+        >
           Delete
         </Button>
       </div>
@@ -39,6 +49,12 @@ const HabitItem = ({ habit }: HabitItemProps) => {
             className="flex flex-1 flex-col items-center gap-0.5 rounded-lg text-xs"
             key={date.toISOString()}
             disabled={isFuture(date)}
+            onClick={() => toggleHabit(habit.id, date)}
+            variant={
+              habit.completions.some((d) => isSameDay(date, d))
+                ? "primary"
+                : "secondary"
+            }
           >
             <span className="font-medium">{format(date, "EEE")}</span>
             <span>{format(date, "d")}</span>
