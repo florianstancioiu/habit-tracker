@@ -1,11 +1,13 @@
 import HabitItem from "./HabitItem";
-import { type Habit } from "../context/HabitProvider";
+import { useHabitContext } from "../context/HabitProvider";
 
 export type HabitListProps = {
-  habits: Habit[];
+  visibleDates: Date[];
 };
 
-const HabitList = ({ habits }: HabitListProps) => {
+const HabitList = ({ visibleDates }: HabitListProps) => {
+  const { habits } = useHabitContext();
+
   if (habits.length === 0) {
     return (
       <p className="text-center text-zinc-500 py-12">
@@ -17,7 +19,7 @@ const HabitList = ({ habits }: HabitListProps) => {
   return (
     <ul className="flex flex-col gap-3 list-none">
       {habits.map((habit) => (
-        <HabitItem key={habit.id} habit={habit} />
+        <HabitItem key={habit.id} habit={habit} visibleDates={visibleDates} />
       ))}
     </ul>
   );
