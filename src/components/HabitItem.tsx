@@ -8,20 +8,15 @@ import {
   subDays,
 } from "date-fns";
 import Button from "./UI/Button";
-
-export type Habit = {
-  id: string | number;
-  name: string;
-  completions: Date[];
-};
+import { useHabitContext, type Habit } from "../context/HabitProvider";
 
 export type HabitItemProps = {
   habit: Habit;
-  deleteHabit: (id: Habit["id"]) => void;
-  toggleHabit: (id: Habit["id"], date: Date) => void;
 };
 
-const HabitItem = ({ habit, deleteHabit, toggleHabit }: HabitItemProps) => {
+const HabitItem = ({ habit }: HabitItemProps) => {
+  const { deleteHabit, toggleHabit } = useHabitContext();
+
   const visibleDates = eachDayOfInterval({
     start: startOfWeek(new Date(), { weekStartsOn: 1 }),
     end: endOfWeek(new Date(), { weekStartsOn: 1 }),
