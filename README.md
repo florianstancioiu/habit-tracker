@@ -1,6 +1,6 @@
 # Habit Tracker
 
-A small React + TypeScript + Tailwind project
+A small React + TypeScript + Tailwind project that I built while watching the youtube video from [Web Dev Simplified](https://www.youtube.com/watch?v=9aTRnV6g0eQ)
 
 ## Things that I've learned while watching the video
 
