@@ -25,8 +25,8 @@ export function HabitProvider({ children }: HabitProviderProps) {
   const [habits, setHabits] = useLocalStorage<Habit[]>("habits", []);
 
   const addHabit = (name: string) => {
-    setHabits([
-      ...habits,
+    setHabits((prevHabits) => [
+      ...prevHabits,
       {
         id: crypto.randomUUID(),
         name,
